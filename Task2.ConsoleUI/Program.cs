@@ -26,7 +26,7 @@ namespace Task2.ConsoleUI
                 set
                 {
                     if (value <= 0)
-                        throw new ArgumentException("Age must be more than zero");
+                        throw new ArgumentException("Height must be more than zero");
                     _height = value;
                 }
             }
@@ -151,6 +151,7 @@ namespace Task2.ConsoleUI
             }
             Console.WriteLine();
         }
+
         /* This code example produces output similar to the following:
          * firstDivision contains 4 elements: { 181 182 183 184 }
          * armyOfSoldiers contains 10 elements: { 180 181 182 183 184 185 186 187 188 189 }

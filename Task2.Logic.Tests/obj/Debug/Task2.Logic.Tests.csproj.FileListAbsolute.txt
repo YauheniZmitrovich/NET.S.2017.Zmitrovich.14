@@ -1,0 +1,9 @@
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\bin\Debug\Task2.Logic.Tests.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\bin\Debug\Task2.Logic.Tests.pdb
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\bin\Debug\nunit.framework.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\bin\Debug\Task2.Logic.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\bin\Debug\Task2.Logic.pdb
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\bin\Debug\nunit.framework.xml
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\obj\Debug\Task2.Logic.Tests.csprojResolveAssemblyReference.cache
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\obj\Debug\Task2.Logic.Tests.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task2.Logic.Tests\obj\Debug\Task2.Logic.Tests.pdb

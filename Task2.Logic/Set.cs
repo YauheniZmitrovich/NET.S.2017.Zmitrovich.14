@@ -230,7 +230,7 @@ namespace Task2.Logic
             Set<T> res = new Set<T>(Count);
 
             foreach (var el in this)
-                if (other.Contains(el))
+                if (!other.Contains(el))
                     res.Add(el);
 
             _array = new T[res.Count];

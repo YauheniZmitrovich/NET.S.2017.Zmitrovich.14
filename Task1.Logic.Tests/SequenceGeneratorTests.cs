@@ -17,6 +17,7 @@ namespace Task1.Logic.Tests
         #region Good script
 
         [Test]
+        [Category("Task1")]
         public void GenerateFibonacciNumbers_BoundIs1_ReturnsSequenceOfTwoElements()
         {
             IEnumerable<int> expectedRes = new int[] { 1, 1 };
@@ -27,6 +28,7 @@ namespace Task1.Logic.Tests
         }
 
         [Test]
+        [Category("Task1")]
         public void GenerateFibonacciNumbers_BoundIs5_ReturnsSequenceOfFiveElements()
         {
             IEnumerable<int> expectedRes = new int[] { 1, 1, 2, 3, 5 };
@@ -37,6 +39,7 @@ namespace Task1.Logic.Tests
         }
 
         [Test]
+        [Category("Task1")]
         public void GenerateFibonacciNumbers_BoundIs7_ReturnsSequenceOfFiveElements()
         {
             IEnumerable<int> expectedRes = new int[] { 1, 1, 2, 3, 5 };
@@ -52,6 +55,7 @@ namespace Task1.Logic.Tests
         #region Exceptions
 
         [Test]
+        [Category("Task1")]
         public void GenerateFibonacciNumbers_BoundIsLessThanZero_ThrowsArgumentException()
         {
             Assert.Catch<ArgumentException>(() =>
@@ -64,6 +68,7 @@ namespace Task1.Logic.Tests
         }
 
         [Test]
+        [Category("Task1")]
         public void GenerateFibonacciNumbers_BoundIsZero_ThrowsArgumentException()
         {
             IEnumerable<int> res;
