@@ -10,7 +10,7 @@ namespace Task2.Logic
     /// <summary>
     /// Represents a set of values. 
     /// </summary>
-    /// <typeparam name="T">  The type of elements in the hash set. </typeparam>
+    /// <typeparam name="T">  The type of elements in the set. </typeparam>
     public sealed class Set<T> : ISet<T>, ICollection<T>, IReadOnlyCollection<T>, IEnumerable<T>, IEnumerable
         where T : class, IEquatable<T>, ICloneable
     {
@@ -295,7 +295,7 @@ namespace Task2.Logic
             if (array == null)
                 throw new ArgumentNullException(nameof(array));
             if (arrayIndex < 0 || array.Length < Count + arrayIndex)
-                throw new IndexOutOfRangeException(nameof(arrayIndex));
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex));
 
             int i = 0;
             foreach (var el in this)
