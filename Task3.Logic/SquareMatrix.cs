@@ -71,7 +71,7 @@ namespace Task3.Logic
             if (array == null)
                 throw new ArgumentNullException(nameof(array));
 
-            if (array.GetLength(0) != array.GetLength(1))
+            if (array.GetLength(0) != array[0].Length)
                 throw new ArgumentException("Incorrect size of input array.");
         }
 

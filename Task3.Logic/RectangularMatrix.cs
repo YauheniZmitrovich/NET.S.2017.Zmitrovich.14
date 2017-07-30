@@ -95,7 +95,7 @@ namespace Task3.Logic
             CheckInputArray(array);
 
             RowsNum = array.GetLength(0);
-            ColumnsNum = array.GetLength(1);
+            ColumnsNum = array[0].Length;
 
             matrix = array;//TODO:Goodbye incapsulation #1
         }
@@ -133,7 +133,7 @@ namespace Task3.Logic
         /// <param name="otherMatrix"> The second matrix to addition. </param>
         /// <param name="func"> Function with addition condition. </param>
         /// <returns> new Instance of <see cref="RectangularMatrix{T}"/> with summary matrix. </returns>
-        public RectangularMatrix<T> SumWithMatrix(RectangularMatrix<T> otherMatrix, Func<T, T, T> func)
+        public T[][] SumWithMatrix(RectangularMatrix<T> otherMatrix, Func<T, T, T> func)
             => RectangularMatrix<T>.SumMatrices(this, otherMatrix, func);
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Task3.Logic
         /// <param name="ob2"> The second matrix to addition. </param>
         /// <param name="func"> Function with addition condition. </param>
         /// <returns> new Instance of <see cref="RectangularMatrix{T}"/> with summary matrix. </returns>
-        public static RectangularMatrix<T> SumMatrices(RectangularMatrix<T> ob1, RectangularMatrix<T> ob2, Func<T, T, T> func)
+        public static T[][] SumMatrices(RectangularMatrix<T> ob1, RectangularMatrix<T> ob2, Func<T, T, T> func)
         {
             if (func == null)
                 throw new ArgumentNullException(nameof(func));
@@ -159,15 +159,14 @@ namespace Task3.Logic
             T[][] res = new T[ob1.RowsNum][];
 
             for (int i = 0; i < ob1.RowsNum; i++)
-                res[i] = new T[ob1.RowsNum];
+                res[i] = new T[ob1.ColumnsNum];
 
             for (int i = 0; i < ob1.RowsNum; i++)
-            for (int j = 0; j < ob1.ColumnsNum; i++)
-                res[i][j] = func(ob1[i, j], ob2[i, j]);
+                for (int j = 0; j < ob1.ColumnsNum; j++)
+                    res[i][j] = func(ob1[i, j], ob2[i, j]);
 
-            return new RectangularMatrix<T>(res);
+            return res;
         }
-
 
         #endregion
 
