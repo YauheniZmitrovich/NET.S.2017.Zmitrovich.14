@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using static Task1.Logic.SequenceGenerator;
 
@@ -64,7 +58,7 @@ namespace Task1.Logic.Tests
 
             Assert.Catch<ArgumentException>(() =>
             {
-                foreach (var n in GenerateFibonacciNumbers(null))//HERE
+                foreach (var n in res)//HERE
                 {
                     int b = n;
                 }
