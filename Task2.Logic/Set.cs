@@ -11,12 +11,14 @@ namespace Task2.Logic
     /// Represents a set of values. 
     /// </summary>
     /// <typeparam name="T">  The type of elements in the set. </typeparam>
-    public sealed class Set<T> : ISet<T>, ICollection<T>, IReadOnlyCollection<T>, IEnumerable<T>, IEnumerable
-        where T : class, IEquatable<T>, ICloneable
+    public sealed class Set<T> : ISet<T>, ICollection<T>, IEnumerable<T>, IEnumerable
+        where T : class
     {
         #region Private fields
 
         private T[] _array;
+
+        private IEqualityComparer<T> _comparer;
 
         #endregion
 
@@ -42,11 +44,7 @@ namespace Task2.Logic
         /// Initializes a new instance of <see cref="Set{T}"/>
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Set()
-        {
-            Count = 0;
-            _array = new T[0];
-        }
+        public Set() : this(0) { }
 
         /// <summary>
         /// Initializes a new instance of <see cref="Set{T}"/>
@@ -55,12 +53,15 @@ namespace Task2.Logic
         /// <param name="capacity">
         /// The initial number of elements that the <see cref="Set{T}"/> can contain.
         /// </param>
-        public Set(int capacity)
+        /// <param name="comparer"> Helps to check the equality of two objects. </param>
+        public Set(int capacity, IEqualityComparer<T> comparer = null)
         {
             if (capacity < 0)
                 throw new ArgumentException("Capacity can't be less than zero.");
 
+            _comparer = comparer ?? EqualityComparer<T>.Default;
             Count = 0;
+
             _array = new T[capacity];
         }
 
@@ -72,12 +73,14 @@ namespace Task2.Logic
         /// <param name="array"> 
         /// The collection whose elements are copied to the new <see cref="Set{T}"/> 
         /// </param>
-        public Set(IEnumerable<T> array)
+        /// <param name="comparer">  Helps to check the equality of two objects. </param>
+        public Set(IEnumerable<T> array, IEqualityComparer<T> comparer = null)
         {
             if (array == null)
                 throw new ArgumentNullException(nameof(array));
 
             _array = new T[array.Count()];
+            _comparer = comparer ?? EqualityComparer<T>.Default;
 
             foreach (var elem in array)
             {
@@ -99,7 +102,6 @@ namespace Task2.Logic
         /// <returns> Returns true if the operation is successful. </returns>
         public bool Add(T item)
         {
-
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
@@ -111,14 +113,14 @@ namespace Task2.Logic
                 T[] objArray = new T[Count + 1];
                 Array.Copy(_array, objArray, Count);
 
-                objArray[Count] = item;
+                objArray[Count] = item;//Goodbye incapsulation #1a.
 
                 _array = objArray;
                 Count++;
             }
             else
             {
-                _array[Count] = item;
+                _array[Count] = item;//Goodbye incapsulation #1b.
                 Count++;
             }
 
@@ -149,7 +151,7 @@ namespace Task2.Logic
             int index;
 
             for (index = 0; index < Count; index++)
-                if (_array[index].Equals(item))
+                if (_comparer.Equals(_array[index], item))
                 {
                     break;
                 }
@@ -277,7 +279,47 @@ namespace Task2.Logic
         public bool Contains(T item)
         {
             foreach (T t in this)
-                if (t.Equals(item))
+                if (_comparer.Equals(t, item))
+                    return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether <see cref="Set{T}"/> contains a specific value.
+        /// </summary>
+        /// <param name="item">  The object to locate in <see cref="Set{T}"/>. </param>
+        /// <param name="equalityCompare"> Checks the equality of two objects. </param>
+        /// <returns> 
+        /// True if item is found in <see cref="Set{T}"/>; otherwise, false.
+        /// </returns>
+        public bool Contains(T item, Func<T, T, bool> equalityCompare)
+        {
+            if (equalityCompare == null)
+                throw new ArgumentNullException(nameof(equalityCompare));
+
+            foreach (T t in this)
+                if (equalityCompare(t, item))
+                    return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether <see cref="Set{T}"/> contains a specific value.
+        /// </summary>
+        /// <param name="item">  The object to locate in <see cref="Set{T}"/>. </param>
+        /// <param name="equalityComparer"> Helps to check the equality of two objects. </param>
+        /// <returns> 
+        /// True if item is found in <see cref="Set{T}"/>; otherwise, false.
+        /// </returns>
+        public bool Contains(T item,IEqualityComparer<T> equalityComparer)
+        {
+            if (equalityComparer == null)
+                throw new ArgumentNullException(nameof(equalityComparer));
+
+            foreach (T t in this)
+                if (equalityComparer.Equals(t, item))
                     return true;
 
             return false;
@@ -302,7 +344,7 @@ namespace Task2.Logic
             int i = 0;
             foreach (var el in this)
             {
-                array[arrayIndex + i] = (T)el.Clone();
+                array[arrayIndex + i] = el;//Goodbye incapsulation #2
                 i++;
             }
         }

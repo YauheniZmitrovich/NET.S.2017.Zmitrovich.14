@@ -11,7 +11,7 @@ namespace Task2.ConsoleUI
     class Program
     {
         /// <summary>
-        /// Represents a soldier.
+        /// Representation of a soldier.
         /// </summary>
         public sealed class Soldier : IEquatable<Soldier>,ICloneable
         {
