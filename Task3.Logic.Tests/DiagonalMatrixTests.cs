@@ -39,43 +39,12 @@ namespace Task3.Logic.Tests
 
         [Test]
         [Category("Task3")]
-        public void CtorWithOneDimensionalArray_IncorrectSize_ThrowsArgumentException()
+        public void CtorWithOneDimensionalArray_NullRef_ThrowsArgumentException()
         {
             DiagonalMatrix<int> matr;
-            int[] arr = { 1, 2, 3, 4, 9, 10, 11, 12 };
+            int[] arr = null;
 
-            Assert.Catch<ArgumentException>(() => matr = new DiagonalMatrix<int>(arr, 5));
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        [Test]
-        [Category("Task3")]
-        public void SumWithMatrix_AllOk_SumOfThoMatrices()
-        {
-            DiagonalMatrix<int> matr1 = new DiagonalMatrix<int>(
-                new int[][]
-                {
-                    new int[] {1, 2, 3},
-                    new int[] {5, 6, 7},
-                    new int[] {9, 10, 11}
-                }
-            );
-
-            int[][] expectedArray =
-                new int[][]
-                {
-                    new int[] {2, 4, 6},
-                    new int[] {10, 12, 14},
-                    new int[] {18, 20, 22}
-                };
-
-            Func<int, int, int> delFunc = (int x, int y) => x + y;
-
-            Assert.AreEqual(expectedArray,matr1.SumWithMatrix(matr1,delFunc));
+            Assert.Catch<ArgumentNullException>(() => matr = new DiagonalMatrix<int>(arr));
         }
 
         #endregion

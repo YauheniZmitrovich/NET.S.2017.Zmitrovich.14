@@ -10,7 +10,7 @@ namespace Task3.Logic
     /// Representation of a symmetrical matrix.
     /// </summary>
     /// <typeparam name="T"> The type of elements in the matrix. </typeparam>
-    public class SymmetricalMatrix<T> : SquareMatrix<T>
+    public class SymmetricalMatrix<T> : SquareMatrix<T> where T : struct
     {
         #region Constructors
 
@@ -24,26 +24,20 @@ namespace Task3.Logic
         /// Initializes a new instance of the <see cref="SymmetricalMatrix{T}"/>.
         /// </summary>
         /// <param name="array"> Two-dimensional array type of <see cref="T"/>. </param>
-        public SymmetricalMatrix(T[][] array) : base(array)
-        {
-            CheckInputArray(array);
-        }
+        public SymmetricalMatrix(T[][] array) : base(array) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SymmetricalMatrix{T}"/>.
         /// </summary>
         /// <param name="array"> One-dimensional array type of <see cref="T"/>. </param>
-        public SymmetricalMatrix(T[] array, int size) : base(array, size)
-        {
-            CheckInputArray(array, size);
-        }
+        public SymmetricalMatrix(T[] array) : base(array) { }
 
         #endregion
 
 
         #region Protected methods
 
-        protected void CheckInputArray(T[][] array)
+        protected override void CheckInputArray(T[][] array)
         {
             base.CheckInputArray(array);
 
@@ -60,21 +54,20 @@ namespace Task3.Logic
 
         }
 
-        protected void CheckInputArray(T[] array, int size)
+        protected override void CheckInputArray(T[] array, int i, int j)
         {
-            CheckInputArray(array, size);
+            base.CheckInputArray(array, i, j);
 
-            for (int i = 0; i < Size; i++)
+            for (i = 0; i < Size; i++)
             {
-                for (int j = i + 1; j < Size; j++)
+                for (j = i + 1; j < Size; j++)
                 {
-                    if (array[i * size + j] .Equals(array[j * size + i]))
+                    if (array[i * Size + j].Equals(array[j * Size + i]))
                     {
                         throw new ArgumentException("Input matrix must be symmetrical.");
                     }
                 }
             }
-
         }
 
         #endregion

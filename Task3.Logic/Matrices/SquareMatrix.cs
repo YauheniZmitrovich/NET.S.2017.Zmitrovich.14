@@ -10,14 +10,14 @@ namespace Task3.Logic
     /// Representation of a square matrix.
     /// </summary>
     /// <typeparam name="T"> The type of elements in the matrix. </typeparam>
-    public class SquareMatrix<T> : RectangularMatrix<T>
+    public class SquareMatrix<T> : RectangularMatrix<T> where T : struct
     {
         #region Properties
 
         /// <summary>
         /// Length of the one side.
         /// </summary>
-        public int Size { get; }
+        public int Size { get; protected set; }
 
         #endregion
 
@@ -39,8 +39,6 @@ namespace Task3.Logic
         /// <param name="array"> Two-dimensional array type of <see cref="T"/>. </param>
         public SquareMatrix(T[][] array) : base(array)
         {
-            CheckInputArray(array);
-
             Size = array.GetLength(0);
         }
 
@@ -48,11 +46,10 @@ namespace Task3.Logic
         /// Initializes a new instance of the <see cref="SquareMatrix{T}"/>.
         /// </summary>
         /// <param name="array"> One-dimensional array type of <see cref="T"/>. </param>
-        public SquareMatrix(T[] array, int size) : base(array, size, size)
+        public SquareMatrix(T[] array)
+            : base(array, (int)Math.Sqrt(array.Length), (int)Math.Sqrt(array.Length))
         {
-            CheckInputArray(array, size);
-
-            Size = size;
+            Size = (int)Math.Sqrt(array.Length);
         }
 
         #endregion
@@ -60,29 +57,23 @@ namespace Task3.Logic
 
         #region Protected methods
 
-        protected void CheckInputIndexes(int size)
-        {
-            if (size < 0 || size >= Size)
-                throw new ArgumentOutOfRangeException("Incorrect size.");
-        }
-
-        protected void CheckInputArray(T[][] array)
+        protected override void CheckInputArray(T[] array, int i, int j)
         {
             if (array == null)
                 throw new ArgumentNullException(nameof(array));
+
+            int size = (int)Math.Sqrt(array.Length);
+
+            if (size * size != array.Length)
+                throw new ArgumentException("Square root of array length must be integer.");
+        }
+
+        protected override void CheckInputArray(T[][] array) 
+        {
+            base.CheckInputArray(array);
 
             if (array.GetLength(0) != array[0].Length)
                 throw new ArgumentException("Incorrect size of input array.");
-        }
-
-        protected void CheckInputArray(T[] array, int size)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-            if (array.Length % size != 0)
-                throw new ArgumentException("Square of size must be equal to array length.");
-            if (size<1)
-                throw new ArgumentOutOfRangeException("Size must be more than zero.");
         }
 
         #endregion
