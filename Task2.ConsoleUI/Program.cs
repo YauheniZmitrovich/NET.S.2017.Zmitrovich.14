@@ -70,9 +70,7 @@ namespace Task2.ConsoleUI
             /// <filterpriority>2</filterpriority>
             public object Clone()//TODO:
             {
-                int h = Height;
-                string n = Name;
-                return new Soldier(){Height = h,Name = n};
+                return new Soldier(){Height = this.Height,Name = this.Name};
             }
 
             /// <summary>Returns a string that represents the current object.</summary>

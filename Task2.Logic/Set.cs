@@ -99,6 +99,7 @@ namespace Task2.Logic
         /// <returns> Returns true if the operation is successful. </returns>
         public bool Add(T item)
         {
+
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
@@ -174,6 +175,7 @@ namespace Task2.Logic
         /// <param name="other"> The collection to compare to the current set. </param>
         public void UnionWith(IEnumerable<T> other)
         {
+
             if (other == null)
                 throw new ArgumentNullException(nameof(other));
 

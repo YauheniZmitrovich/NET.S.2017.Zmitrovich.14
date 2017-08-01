@@ -16,16 +16,16 @@ namespace Task1.Logic
         /// <summary>
         /// Generate sequence of fibonacci numbers up to a certain limit. 
         /// </summary>
-        /// <param name="bound"> The boundary to which array will be generated. </param>
+        /// <param name="condition"> Termination condition. </param>
         /// <returns> Sequence of int fibonacci numbers. </returns>
-        public static IEnumerable<int> GenerateFibonacciNumbers(int bound)
+        public static IEnumerable<int> GenerateFibonacciNumbers(Predicate<int> condition)
         {
-            if (bound < 1)
-                throw new ArgumentException("The bound must be more than zero.");
+            if (condition == null)
+                throw new ArgumentNullException(nameof(condition));
 
             int prev = 0, curr = 1;
            
-            while (curr <= bound)
+            while (condition(curr))
             {
 
                 yield return curr;

@@ -22,7 +22,7 @@ namespace Task1.Logic.Tests
         {
             IEnumerable<int> expectedRes = new int[] { 1, 1 };
 
-            IEnumerable<int> res = GenerateFibonacciNumbers(1);
+            IEnumerable<int> res = GenerateFibonacciNumbers(i => i <= 1);
 
             Assert.AreEqual(expectedRes, res);
         }
@@ -33,7 +33,7 @@ namespace Task1.Logic.Tests
         {
             IEnumerable<int> expectedRes = new int[] { 1, 1, 2, 3, 5 };
 
-            IEnumerable<int> res = Logic.SequenceGenerator.GenerateFibonacciNumbers(5);
+            IEnumerable<int> res = Logic.SequenceGenerator.GenerateFibonacciNumbers(i => i <= 5);
 
             Assert.AreEqual(expectedRes, res);
         }
@@ -44,7 +44,7 @@ namespace Task1.Logic.Tests
         {
             IEnumerable<int> expectedRes = new int[] { 1, 1, 2, 3, 5 };
 
-            IEnumerable<int> res = Logic.SequenceGenerator.GenerateFibonacciNumbers(7);
+            IEnumerable<int> res = Logic.SequenceGenerator.GenerateFibonacciNumbers(i => i <= 7.5);
 
             Assert.AreEqual(expectedRes, res);
         }
@@ -56,33 +56,19 @@ namespace Task1.Logic.Tests
 
         [Test]
         [Category("Task1")]
-        public void GenerateFibonacciNumbers_BoundIsLessThanZero_ThrowsArgumentException()
-        {
-            Assert.Catch<ArgumentException>(() =>
-            {
-                foreach (var n in GenerateFibonacciNumbers(-3))//HERE
-                {
-                    int b = n;
-                }
-            });
-        }
-
-        [Test]
-        [Category("Task1")]
-        public void GenerateFibonacciNumbers_BoundIsZero_ThrowsArgumentException()
+        public void GenerateFibonacciNumbers_NullReference_ThrowsArgumentNullException()
         {
             IEnumerable<int> res;
-            
-            res = GenerateFibonacciNumbers(0);//NO EXCEPTION!
+
+            res = GenerateFibonacciNumbers(null);//NO EXCEPTION!
 
             Assert.Catch<ArgumentException>(() =>
             {
-                foreach (var n in res)//HERE
+                foreach (var n in GenerateFibonacciNumbers(null))//HERE
                 {
                     int b = n;
                 }
             });
-
         }
 
         #endregion

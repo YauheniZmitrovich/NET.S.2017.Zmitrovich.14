@@ -121,7 +121,7 @@ namespace Task3.Logic
                     matrix[i][j] = array[i * ColumnsNum + j];//TODO:Goodbye incapsulation #2
                 }
         }
-
+        
         #endregion
 
 
