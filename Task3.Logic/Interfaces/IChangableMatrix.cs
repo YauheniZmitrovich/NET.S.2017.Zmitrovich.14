@@ -1,12 +1,14 @@
 ﻿using System;
+using Task3.Logic.Matrices;
 
-namespace Task3.Logic
+namespace Task3.Logic.Interfaces
 {
     /// <summary>
-    /// Defines main functions of a matrix.
+    /// Defines option of chaging elements.
     /// </summary>
-    /// <typeparam name="T"> Type of elements of matrix. </typeparam>
-    public interface IMatrix<T> where T : struct
+    /// <typeparam name="TArgs">  Type of class with arguments. </typeparam>
+    /// <typeparam name="T"> Type of elements to change. </typeparam>
+    public interface IChangableMatrix<T> where T : struct
     {
         /// <summary>
         /// The event when any element changes.
@@ -19,16 +21,6 @@ namespace Task3.Logic
         /// <param name="i"> Index of row. </param>
         /// <param name="j"> Index of column. </param>
         T this[int i, int j] { get; set; }
-
-        /// <summary>
-        /// Count of rows.
-        /// </summary>
-        int RowsNum { get; }
-
-        /// <summary>
-        /// Count of columns.
-        /// </summary>
-        int ColumnsNum { get; }
     }
 
     /// <summary>

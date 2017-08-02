@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task3.Logic.Interfaces;
 
-namespace Task3.Logic
+namespace Task3.Logic.Matrices
 {
     /// <summary>
     /// Representation of a rectangular matrix.
     /// </summary>
     /// <typeparam name="T"> The type of elements in the matrix. </typeparam>
-    public class RectangularMatrix<T> : IMatrix<T> where T : struct
+    public class RectangularMatrix<T> : IMatrix<T>, IChangableMatrix<T>
+        where T : struct
     {
         #region Private and protected fields 
 
@@ -32,7 +34,7 @@ namespace Task3.Logic
         /// </summary>
         /// <param name="i"> Index of row. </param>
         /// <param name="j"> Index of column. </param>
-        public virtual T this[int i, int j]
+        public T this[int i, int j]
         {
             get
             {
@@ -126,7 +128,7 @@ namespace Task3.Logic
 
         #region Protected methods
 
-        protected virtual void OnElementChanged(ElementChangedEventArgs<T> eventArgs)
+        protected void OnElementChanged(ElementChangedEventArgs<T> eventArgs)
         {
             if (eventArgs == null)
                 throw new ArgumentNullException(nameof(eventArgs));
@@ -135,27 +137,14 @@ namespace Task3.Logic
         }
 
 
-        protected virtual void CheckInputIndexes(int i, int j)
-        {
-            if (i < 0 || i >= RowsNum)
-                throw new ArgumentOutOfRangeException("Incorrect index of row.");
-            if (j < 0 || i >= ColumnsNum)
-                throw new ArgumentOutOfRangeException("Incorrect index of column.");
-        }
-
-        protected void CheckInputSizes(int rows, int columns)
-        {
-            if (rows < 1)
-                throw new ArgumentException("Number of rows must be more then zero.");
-            if (columns < 1)
-                throw new ArgumentException("Number of coumns must be more then zero.");
-        }
-
-
         protected virtual void CheckInputArray(T[][] array)
         {
             if (array == null)
                 throw new ArgumentNullException(nameof(array));
+
+            for (int i = 0; i < array.GetLength(0); i++)
+                if (array[i] == null)
+                    throw new ArgumentNullException(nameof(array));
         }
 
         protected virtual void CheckInputArray(T[] array, int i, int j)
@@ -168,7 +157,23 @@ namespace Task3.Logic
                 throw new ArgumentOutOfRangeException("Indexes must be more than zero.");
         }
 
+
+        private void CheckInputIndexes(int i, int j)
+        {
+            if (i < 0 || i >= RowsNum)
+                throw new ArgumentOutOfRangeException("Incorrect index of row.");
+            if (j < 0 || i >= ColumnsNum)
+                throw new ArgumentOutOfRangeException("Incorrect index of column.");
+        }
+
+        private void CheckInputSizes(int rows, int columns)
+        {
+            if (rows < 1)
+                throw new ArgumentException("Number of rows must be more then zero.");
+            if (columns < 1)
+                throw new ArgumentException("Number of coumns must be more then zero.");
+        }
+
         #endregion
     }
-
 }

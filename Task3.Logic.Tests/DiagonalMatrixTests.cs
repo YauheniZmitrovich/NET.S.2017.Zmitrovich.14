@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework.Internal;
 using NUnit.Framework;
+using Task3.Logic.Matrices;
 
 namespace Task3.Logic.Tests
 {

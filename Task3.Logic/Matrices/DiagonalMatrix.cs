@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task3.Logic.Interfaces;
 
-namespace Task3.Logic
+namespace Task3.Logic.Matrices
 {
     /// <summary>
     /// Representation of a diagonal matrix.
     /// </summary>
     /// <typeparam name="T"> The type of elements in the matrix. </typeparam>
-    public class DiagonalMatrix<T> : SymmetricalMatrix<T> where T : struct
+    public class DiagonalMatrix<T> : IMatrix<T>, IChangableMatrix<T> where T : struct
     {
         #region Private fields
 
@@ -19,14 +20,19 @@ namespace Task3.Logic
         #endregion
 
 
-        #region Indexator and properties
+        #region Events indexator and properties
+
+        /// <summary>
+        /// The event when any element changes.
+        /// </summary>
+        public event EventHandler<ElementChangedEventArgs<T>> ElementChanged;
 
         /// <summary>
         /// Indexer.
         /// </summary>
         /// <param name="i"> Index of row. </param>
         /// <param name="j"> Index of column. </param>
-        public override T this[int i, int j]
+        public T this[int i, int j]
         {
             get
             {
@@ -48,6 +54,21 @@ namespace Task3.Logic
             }
         }
 
+        /// <summary>
+        /// Length of the one side.
+        /// </summary>
+        public int Size { get; protected set; }
+
+        /// <summary>
+        /// Count of rows.
+        /// </summary>
+        public int RowsNum => Size;
+
+        /// <summary>
+        /// Count of columns.
+        /// </summary>
+        public int ColumnsNum => Size;
+
         #endregion
 
 
@@ -57,7 +78,7 @@ namespace Task3.Logic
         /// Initializes a new instance of the <see cref="DiagonalMatrix{T}"/>.
         /// </summary>
         /// <param name="size"> The length of the sides. </param>
-        public DiagonalMatrix(int size) : base(1)
+        public DiagonalMatrix(int size)
         {
             if (size < 1)
                 throw new ArgumentException("Size must be more than zero.");
@@ -70,8 +91,8 @@ namespace Task3.Logic
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagonalMatrix{T}"/>.
         /// </summary>
-        /// <param name="array"> Two-dimensional array type of <see cref="T"/>. </param>
-        public DiagonalMatrix(T[][] arr) : base(1)
+        /// <param name="arr"> Two-dimensional array type of <see cref="T"/>. </param>
+        public DiagonalMatrix(T[][] arr)
         {
             CheckInputArray(arr);
 
@@ -89,7 +110,7 @@ namespace Task3.Logic
         /// <param name="array"> 
         /// One-dimensional array with elements type of <see cref="T"/>. Intializes main diagonal.
         /// </param>
-        public DiagonalMatrix(T[] arr) : base(1)
+        public DiagonalMatrix(T[] arr)
         {
             CheckInputArray(arr);
 
@@ -104,11 +125,41 @@ namespace Task3.Logic
         #endregion
 
 
-        #region Protected methods
+        #region Protected and private methods
 
-        protected override void CheckInputArray(T[][] arr)
+        protected void OnElementChanged(ElementChangedEventArgs<T> eventArgs)
         {
-            base.CheckInputArray(arr);
+            if (eventArgs == null)
+                throw new ArgumentNullException(nameof(eventArgs));
+
+            ElementChanged?.Invoke(this, eventArgs);
+        }
+
+        protected virtual void CheckInputArray(T[][] arr)
+        {
+            #region Null ref validation
+
+            if (arr == null)
+                throw new ArgumentNullException(nameof(arr));
+
+            for (int i = 0; i < arr.GetLength(0); i++)
+                if (arr[i] == null)
+                    throw new ArgumentNullException(nameof(arr));
+
+            #endregion
+
+            
+            #region As square matrix validation
+
+            int size = (int)Math.Sqrt(arr.Length);
+
+            if (arr.GetLength(0) != arr[0].Length)
+                throw new ArgumentException("Incorrect size of input array.");
+
+            #endregion
+
+
+            #region As diagonal matrix validation
 
             for (int i = 0; i < Size; i++)
             {
@@ -121,6 +172,8 @@ namespace Task3.Logic
                         throw new ArgumentException("Input matrix must be diagonal.");
                 }
             }
+
+            #endregion
         }
 
         protected virtual void CheckInputArray(T[] arr)
@@ -129,7 +182,7 @@ namespace Task3.Logic
                 throw new ArgumentNullException(nameof(arr));
         }
 
-        protected override void CheckInputIndexes(int i, int j)
+        private void CheckInputIndexes(int i, int j)
         {
             if (i < 0 || i >= Size)
                 throw new ArgumentOutOfRangeException("Incorrect index of row.");

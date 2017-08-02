@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task3.Logic
+namespace Task3.Logic.Matrices
 {
     /// <summary>
     /// Representation of a square matrix.
