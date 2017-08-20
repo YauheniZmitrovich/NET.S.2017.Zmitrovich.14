@@ -1,0 +1,5 @@
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic.Tests\bin\Debug\Task4.Logic.Tests.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic.Tests\bin\Debug\Task4.Logic.Tests.pdb
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic.Tests\obj\Debug\Task4.Logic.Tests.csprojResolveAssemblyReference.cache
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic.Tests\obj\Debug\Task4.Logic.Tests.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic.Tests\obj\Debug\Task4.Logic.Tests.pdb

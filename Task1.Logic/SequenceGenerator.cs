@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Task1.Logic
 {
@@ -11,24 +12,31 @@ namespace Task1.Logic
         /// <summary>
         /// Generate sequence of fibonacci numbers up to a certain limit. 
         /// </summary>
-        /// <param name="condition"> Termination condition. </param>
+        /// <param name="quantity"> Quantity of numbers. </param>
         /// <returns> Sequence of int fibonacci numbers. </returns>
-        public static IEnumerable<int> GenerateFibonacciNumbers(Predicate<int> condition)
+        public static IEnumerable<BigInteger> GenerateFibonacciNumbers(long quantity)
         {
-            if (condition == null)
-                throw new ArgumentNullException(nameof(condition));
+            if (quantity < 1)
+                throw new ArgumentException("The quantity must me more than zero.");
 
-            int prev = 0, curr = 1;
-           
-            while (condition(curr))
+            return GenerateNums(quantity);
+
+            IEnumerable<BigInteger> GenerateNums(long q)
             {
+                BigInteger prev = 0, curr = 1;
 
-                yield return curr;
+                yield return 1;
 
-                int temp = curr;
-                curr = prev + curr;
-                prev = temp;
+                for (int i = 0; i < q - 1; i++)
+                {
+                    BigInteger temp = curr;
+                    curr = prev + curr;
+                    prev = temp;
+
+                    yield return curr;
+                }
             }
+
         }
     }
 }

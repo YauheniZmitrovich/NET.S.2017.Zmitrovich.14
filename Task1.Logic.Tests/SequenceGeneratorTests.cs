@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using NUnit.Framework;
 using static Task1.Logic.SequenceGenerator;
 
@@ -12,11 +13,11 @@ namespace Task1.Logic.Tests
 
         [Test]
         [Category("Task1")]
-        public void GenerateFibonacciNumbers_BoundIs1_ReturnsSequenceOfTwoElements()
+        public void GenerateFibonacciNumbers_QuantityIs2_ReturnsSequenceOfTwoElements()
         {
-            IEnumerable<int> expectedRes = new int[] { 1, 1 };
+            IEnumerable<BigInteger> expectedRes = new BigInteger[] { 1, 1 };
 
-            IEnumerable<int> res = GenerateFibonacciNumbers(i => i <= 1);
+            IEnumerable<BigInteger> res = GenerateFibonacciNumbers(2);
 
             Assert.AreEqual(expectedRes, res);
         }
@@ -25,9 +26,9 @@ namespace Task1.Logic.Tests
         [Category("Task1")]
         public void GenerateFibonacciNumbers_BoundIs5_ReturnsSequenceOfFiveElements()
         {
-            IEnumerable<int> expectedRes = new int[] { 1, 1, 2, 3, 5 };
+            IEnumerable<BigInteger> expectedRes = new BigInteger[] { 1, 1, 2, 3, 5 };
 
-            IEnumerable<int> res = Logic.SequenceGenerator.GenerateFibonacciNumbers(i => i <= 5);
+            IEnumerable<BigInteger> res = GenerateFibonacciNumbers(5);
 
             Assert.AreEqual(expectedRes, res);
         }
@@ -36,9 +37,9 @@ namespace Task1.Logic.Tests
         [Category("Task1")]
         public void GenerateFibonacciNumbers_BoundIs7_ReturnsSequenceOfFiveElements()
         {
-            IEnumerable<int> expectedRes = new int[] { 1, 1, 2, 3, 5 };
+            IEnumerable<BigInteger> expectedRes = new BigInteger[] { 1, 1, 2, 3, 5, 8, 13 };
 
-            IEnumerable<int> res = Logic.SequenceGenerator.GenerateFibonacciNumbers(i => i <= 7.5);
+            IEnumerable<BigInteger> res = GenerateFibonacciNumbers(7);
 
             Assert.AreEqual(expectedRes, res);
         }
@@ -52,16 +53,11 @@ namespace Task1.Logic.Tests
         [Category("Task1")]
         public void GenerateFibonacciNumbers_NullReference_ThrowsArgumentNullException()
         {
-            IEnumerable<int> res;
-
-            res = GenerateFibonacciNumbers(null);//NO EXCEPTION!
+            IEnumerable<BigInteger> res;
 
             Assert.Catch<ArgumentException>(() =>
             {
-                foreach (var n in res)//HERE
-                {
-                    int b = n;
-                }
+                res = GenerateFibonacciNumbers(-4);
             });
         }
 

@@ -20,7 +20,7 @@ namespace Task3.Logic.Interfaces
         /// </summary>
         /// <param name="i"> Index of row. </param>
         /// <param name="j"> Index of column. </param>
-        T this[int i, int j] { get; set; }
+        T this[int i, int j] { set; }
     }
 
     /// <summary>

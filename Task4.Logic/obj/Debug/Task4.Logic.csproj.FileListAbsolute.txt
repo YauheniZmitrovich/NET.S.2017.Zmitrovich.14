@@ -1,0 +1,5 @@
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic\bin\Debug\Task4.Logic.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic\bin\Debug\Task4.Logic.pdb
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic\obj\Debug\Task4.Logic.csprojResolveAssemblyReference.cache
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic\obj\Debug\Task4.Logic.dll
+E:\EPAM\NET.S.2017.Zmitrovich.14\Task4.Logic\obj\Debug\Task4.Logic.pdb
