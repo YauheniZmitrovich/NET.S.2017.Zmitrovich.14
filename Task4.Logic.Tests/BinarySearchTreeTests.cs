@@ -162,9 +162,7 @@ namespace Task4.Logic.Tests
             Assert.AreEqual(expArr, resArray);
         }
 
-
         #endregion
-    
     }
 }
 

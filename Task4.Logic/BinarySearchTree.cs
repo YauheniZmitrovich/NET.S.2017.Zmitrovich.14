@@ -227,6 +227,5 @@ namespace Task4.Logic
 
         #endregion
     }
-
 }
 
